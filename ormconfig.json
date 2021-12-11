@@ -1,0 +1,14 @@
+{
+
+    
+        "name":"default",
+        "type": "postgres",
+        "database": "user",
+        "username": "nirjan",
+        "entities": ["dist/user/entities/**/*.js"],
+        "synchronize": true,
+        "logging": true
+    
+}
+    
+
