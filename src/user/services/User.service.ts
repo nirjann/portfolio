@@ -1,9 +1,9 @@
-import { CreateUserInput } from './../dtos/create-user.dto';
-import { IUserEntity } from './User.interface';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { User } from '../entities/User.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from '../entities/User.entity';
+import { CreateUserInput } from './../dtos/create-user.dto';
+import { IUserEntity } from './User.interface';
 @Injectable()
 export class UserService implements IUserEntity<User> {
   constructor(
