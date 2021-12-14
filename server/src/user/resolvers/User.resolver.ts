@@ -1,9 +1,9 @@
-import { UserService } from './../services/User.service';
-import { CreateUserInput } from './../dtos/create-user.dto';
+import { BadRequestException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User } from '../entities/User.entity';
-import { InternalServerErrorException } from '@nestjs/common';
 import { hash } from 'argon2';
+import { User } from '../entities/User.entity';
+import { CreateUserInput } from './../dtos/create-user.dto';
+import { UserService } from './../services/User.service';
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -11,6 +11,11 @@ export class UserResolver {
   @Query((returns) => String)
   hello() {
     return 'hello ';
+  }
+
+  @Query((returns) => [User])
+  async getUsers(): Promise<User[]> {
+    return this.userService.getAll();
   }
 
   @Mutation((returns) => Boolean)
@@ -25,5 +30,12 @@ export class UserResolver {
     });
     if (!user) return false;
     return true;
+  }
+
+  @Mutation((returns) => Boolean)
+  async deleteUser(@Args('id') id: string): Promise<boolean> {
+    const isUser = await this.userService.get(id);
+    if (!isUser) throw new BadRequestException('Bad Request');
+    return this.userService.delete(id);
   }
 }
