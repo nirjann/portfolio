@@ -1,11 +1,9 @@
-import { User } from './entities/User.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserService } from './services/User.service';
-import { UserResolver } from './resolvers/User.resolver';
+import { UserResolverQueries } from './graphql/resolvers/queries/User.query';
+import { UserResolverMutations } from './graphql/resolvers/mutations/User.mutation';
 import { Module } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
-  providers: [UserResolver, UserService],
+  providers: [UserService, UserResolverMutations, UserResolverQueries],
 })
 export class UserModule {}

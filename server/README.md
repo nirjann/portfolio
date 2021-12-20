@@ -1,73 +1,71 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Project Breakdown
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Identifying the users
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- The Admin (me)
+  - **Permissions**
+    - Create Blogs
+    - Edit existing blogs
+    - Delete Blogs
+    - Add new users [optional]
+    - manage user roles [optional]
+    - Delete Users [optional]
+- Readers/Recruiters
 
-## Description
+## Identifying the features of the project
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Presenting the static information in an organized and visual way
+- Blogs
+- Admin Dashboard for Blog Manipulation
 
-## Installation
+## Identifying the Resources
 
-```bash
-$ npm install
-```
+- User Resource
+- Blog Resource
 
-## Running the app
+## Identifying the Actions
 
-```bash
-# development
-$ npm run start
+- **User Creation [optional feature]**
 
-# watch mode
-$ npm run start:dev
+  - From the Admin panel
+  - User Credentials are sent
+  - Email and Password are validated
+  - User Roles has been well specified
+  - User has been created and stored in DB.
 
-# production mode
-$ npm run start:prod
-```
+- **Admin Login**
 
-## Test
+  - From the admin panel the user logs in using credentials
+  - The credentials are validated against the database
+  - An access token has been issued and sent as a cookie
+  - User successfully logged in.
 
-```bash
-# unit tests
-$ npm run test
+- **Create Blogs**
+  - Write blogs from the editor on the admin panel
+  - Blogs are sanitized first
+  - Blogs are saved in raw text into the database ?
+  - Raw Blogs are transformed into html files and saved in S3?
+  - Reference of the HTML blogs are saved into the DB.
 
-# e2e tests
-$ npm run test:e2e
+## Mapping Resources
 
-# test coverage
-$ npm run test:cov
-```
+### User Resource
 
-## Support
+| Action      | Verb | Endpoint          | Status code                                  |
+| ----------- | ---- | ----------------- | -------------------------------------------- |
+| Admin Login | POST | /auth/local/login | 200 Ok for successful, 401 for denied access |
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### lets do this in graphQL
 
-## Stay in touch
+- A login mutation is needed
+- incoming user credentials are validated
+- logs in the user by sending access token as cookie
+-
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Blogs Resource
 
-## License
+- Let's implement a graphql API for efficient query and mutation
 
-Nest is [MIT licensed](LICENSE).
+| Action      | Verb | Endpoint | Schema                                                                                        |
+| ----------- | ---- | -------- | --------------------------------------------------------------------------------------------- |
+| Create Blog | POST | /graphql | `query {fetchBlogs(args: limit and offset) {title referenceLink createdAt updatedAt author}}` |
