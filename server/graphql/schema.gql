@@ -2,18 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Query {
+  hello: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserDto!): UserWithError!
+}
+
+union UserWithError = User | BaseError
+
 type User {
   id: String!
   username: String!
   email: String!
 }
 
-type Query {
-  hello: String!
-}
-
-type Mutation {
-  createUser(createUserInput: CreateUserDto!): User!
+type BaseError {
+  field: String!
+  message: String!
 }
 
 input CreateUserDto {

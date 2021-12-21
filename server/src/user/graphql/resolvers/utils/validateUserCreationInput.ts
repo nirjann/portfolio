@@ -1,6 +1,6 @@
 import { userCreationValidationSchema } from './../../../dto/validation-schemas/userCreation.schema';
 import { CreateUserDto } from './../../../dto/create-user.dto';
-import { BaseError } from '../../typedefs/BaseError.type';
+import { BaseError } from '../../typedefs/User.type';
 export const validateUserCreationInput = async (
   createUserInput: CreateUserDto,
 ): Promise<BaseError | null> => {
