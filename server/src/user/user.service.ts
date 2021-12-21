@@ -7,7 +7,7 @@ import { User } from './graphql/typedefs/User.type';
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
   async addUser(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.prismaService.add(createUserDto);
+    const user = await this.prismaService.user.create({ data: createUserDto });
     return user;
   }
 }

@@ -9,8 +9,4 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     this.$connect();
   }
-
-  async add(inputData) {
-    return await this.user.create({ data: inputData });
-  }
 }

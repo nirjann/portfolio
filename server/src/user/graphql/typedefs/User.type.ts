@@ -11,15 +11,3 @@ export class User {
   @Field()
   email: string;
 }
-
-@ObjectType()
-export class AlreadyExistsError {
-  @Field()
-  field: string;
-
-  @Field()
-  message: string;
-}
-
-@ObjectType()
-export class IncorrectPasswordError {}
