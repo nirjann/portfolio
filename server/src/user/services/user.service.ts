@@ -15,20 +15,17 @@ export class UserService {
     const user = await this.prismaService.user.findUnique({
       where: { id },
     });
-    if (!user) return null;
     return user;
   }
 
   async getByEmail(email: string): Promise<User> {
     const user = await this.prismaService.user.findUnique({ where: { email } });
-    if (!user) return null;
     return user;
   }
   async getByUsername(username: string): Promise<User> {
     const user = await this.prismaService.user.findUnique({
       where: { username },
     });
-    if (!user) return null;
     return user;
   }
 }

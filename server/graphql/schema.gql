@@ -3,11 +3,7 @@
 # ------------------------------------------------------
 
 type Query {
-  hello: String!
-}
-
-type Mutation {
-  createUser(createUserInput: CreateUserDto!): UserWithError!
+  getCurrentUser(id: String!): UserWithError!
 }
 
 union UserWithError = User | BaseError
@@ -21,6 +17,10 @@ type User {
 type BaseError {
   field: String!
   message: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserDto!): UserWithError!
 }
 
 input CreateUserDto {
