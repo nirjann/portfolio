@@ -15,10 +15,17 @@ export class UserResolverMutations {
   ): Promise<typeof UserWithError> {
     const { email, username } = createUserInput;
     const errors = await validateUserCreationInput(createUserInput);
-    console.log(errors);
     if (errors) return errors;
     const modifiedUserInput = await createHash(createUserInput);
-    const user = await this.userService.add(modifiedUserInput);
+    let user;
+    try {
+      user = await this.userService.add(modifiedUserInput);
+    } catch (err) {
+      return {
+        field: 'username',
+        message: 'username already taken',
+      };
+    }
     return user;
   }
 }

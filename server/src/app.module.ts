@@ -3,9 +3,13 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import {
+  ApolloError,
+  ApolloServerPluginLandingPageLocalDefault,
+} from 'apollo-server-core';
 import { UserModule } from './user/user.module';
-import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { GraphQLError } from 'graphql';
+import { v4 } from 'uuid';
 
 @Module({
   imports: [
@@ -16,6 +20,11 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       include: [UserModule],
+      formatError: (error: GraphQLError) => {
+        if (error instanceof ApolloError) return error;
+        const id = v4();
+        return new GraphQLError(`Internal Error: ${id}`);
+      },
     }),
     UserModule,
   ],
