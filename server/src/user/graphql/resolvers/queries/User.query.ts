@@ -5,6 +5,8 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 @Resolver((of) => User)
 export class UserResolverQueries {
   constructor(private readonly userService: UserService) {}
+
+  // NOTE: This mutation should be implemented after the login functionality in the auth service has been implemented
   @Query(() => UserWithError)
   async getCurrentUser(@Args('id') id: string): Promise<typeof UserWithError> {
     let user;

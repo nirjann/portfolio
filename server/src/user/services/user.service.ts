@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../graphql/typedefs/User.type';
 
 @Injectable()

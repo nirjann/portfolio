@@ -3,18 +3,23 @@ import { CreateUserDto } from '../../../dto/create-user.dto';
 import { UserService } from '../../../services/user.service';
 import { User, UserWithError } from '../../typedefs/User.type';
 import { createHash } from '../utils/createHash';
-import { validateUserCreationInput } from './../utils/validateUserCreationInput';
+import { TInput, ValidateUserInput } from '../utils/validateUserInput';
 
 @Resolver((of) => User)
 export class UserResolverMutations {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly validateUserInput: ValidateUserInput<TInput>,
+  ) {}
 
   @Mutation((returns) => UserWithError)
   async createUser(
     @Args('createUserInput') createUserInput: CreateUserDto,
   ): Promise<typeof UserWithError> {
     const { email, username } = createUserInput;
-    const errors = await validateUserCreationInput(createUserInput);
+    const errors = await this.validateUserInput.validateUserInput({
+      userInput: createUserInput,
+    });
     if (errors) return errors;
     const modifiedUserInput = await createHash(createUserInput);
     let user;
