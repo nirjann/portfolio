@@ -55,12 +55,11 @@
 | ----------- | ---- | ----------------- | -------------------------------------------- |
 | Admin Login | POST | /auth/local/login | 200 Ok for successful, 401 for denied access |
 
-#### lets do this in graphQL
+#### Storing Keys Problem
 
-- A login mutation is needed
-- incoming user credentials are validated
-- logs in the user by sending access token as cookie
--
+- Let's store the private and public key to the S3 in an encrypted manner
+- For decryption, we use a shared secret that is hardcoded into docker secret.
+- For transport security, we use TLS.
 
 ### Blogs Resource
 
